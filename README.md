@@ -20,6 +20,12 @@ The universal attacks on **CIFAR-10** and **ImageNet** models are based on:
 Universal Adversarial Perturbations (UAPs) generated via Stochastic Gradient Descent (SGD), or referred to as Stochastic Projected Gradient Descent (sPGD) by  [Mummadi et al.](https://openaccess.thecvf.com/content_ICCV_2019/papers/Mummadi_Defending_Against_Universal_Perturbations_With_Shared_Adversarial_Training_ICCV_2019_paper.pdf) and [Deng & Karam](https://ieeexplore.ieee.org/document/9191288), has been shown to create more effective UAPs than the originally proposed iterative-DeepFool by [Moosavi-Dezfooli et al.](https://openaccess.thecvf.com/content_cvpr_2017/papers/Moosavi-Dezfooli_Universal_Adversarial_Perturbations_CVPR_2017_paper.pdf) We implement targeted and untargeted versions of the SGD-UAP algorithm.
 
 
+## Pre-computed Models & UAPs
+A pre-trained ResNet18 for CIFAR-10 is available [here](https://drive.google.com/file/d/1lyFy1hXWC-kv8dM5qMS3_frQtyS-F7xv/view?usp=sharing) that achieves 94.02% accuracy on the test set. Pre-trained ImageNet models are available online via [torchvision](https://pytorch.org/docs/stable/torchvision/models.html).
+
+Pre-computed targeted and untargeted UAPs are made available in this repository for the ResNet18 model on CIFAR-10 and the ResNet50 models on ImageNet.
+
+
 ## ImageNet Dataset
 We refer to instructions [here](https://github.com/pytorch/examples/tree/master/imagenet) for downloading and preparing the ImageNet dataset. 
 
