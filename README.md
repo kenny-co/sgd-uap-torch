@@ -15,7 +15,14 @@ We encourage you to explore these Python notebooks to generate and evaluate your
 The notebook **texture-shape.ipynb** visualizes some results discussed in the [paper](https://arxiv.org/abs/1911.10364), exploring the UAPs for texture and shape-biased models. Credit to [Geirhos et al.](https://github.com/rgeirhos/texture-vs-shape) for making available their models trained on Stylized-ImageNet.
 
 ### UAP Performance
-For undefended models trained on ImageNet, we can expect untargeted UAPs to achieve **above 90% evasion rate** on the ImageNet validation set for L-infinity perturbation values of 10/255.
+For undefended models trained on ImageNet, we can expect untargeted UAPs to achieve **above 90% evasion rate** on the ImageNet validation set for L-infinity perturbation values of 10/255. An example of a targeted UAP for a ResNet18 model on CIFAR-10 is shown below with its effect on the model's output distribution.
+
+<p align=center width="100%">
+<img src="docs/uap_example.png" width="23%">
+&nbsp;&nbsp;&nbsp;
+<img src="docs/distribution_uap.png" width="31%">
+<img src="docs/distribution_clean.png" width="31%">
+</p>
 
 Pre-computed targeted and untargeted UAPs are made available in this repository for the ResNet18 model on CIFAR-10 and the ResNet50 models on ImageNet.
 
@@ -34,7 +41,7 @@ We plan to include future support for other UAPs like [procedural noise](https:/
 
 
 ## Acknowledgments
-<img src="docs/dataspartan.jpeg" align="right" width="30%">
+<img src="docs/dataspartan.jpeg" align="right" width="25%">
 
 Learn more about the [Resilient Information Systems Security (RISS)](http://rissgroup.org/) group at Imperial College London. Kenneth Co is partially supported by [DataSpartan](http://dataspartan.co.uk/).
 
