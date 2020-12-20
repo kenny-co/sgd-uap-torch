@@ -1,0 +1,6 @@
+numpy
+torchvision
+torch>=1.1
+matplotlib
+multiprocessing
+json
