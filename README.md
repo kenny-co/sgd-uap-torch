@@ -1,21 +1,8 @@
 # Universal Adversarial Perturbations via SGD
 
-Universal Adversarial Perturbations (UAPs) generated via [Stochastic Gradient Descent (SGD)](https://ojs.aaai.org//index.php/AAAI/article/view/6017), or sometimes referred to as Stochastic Projected Gradient Descent (sPGD) in  [Mummadi et al.](https://openaccess.thecvf.com/content_ICCV_2019/papers/Mummadi_Defending_Against_Universal_Perturbations_With_Shared_Adversarial_Training_ICCV_2019_paper.pdf) and [Deng & Karam](https://ieeexplore.ieee.org/document/9191288), has been shown to create more effective UAPs than the originally proposed iterative-DeepFool by [Moosavi-Dezfooli et al.](https://openaccess.thecvf.com/content_cvpr_2017/papers/Moosavi-Dezfooli_Universal_Adversarial_Perturbations_CVPR_2017_paper.pdf) We implement targeted and untargeted versions of the SGD-UAP algorithm.
+This repository implements the targeted and untargeted versions of the [Stochastic Gradient Descent (SGD)](https://ojs.aaai.org//index.php/AAAI/article/view/6017) algorithm (also known as Stochastic Projected Gradient Descent (sPGD) in  [Mummadi et al.](https://openaccess.thecvf.com/content_ICCV_2019/papers/Mummadi_Defending_Against_Universal_Perturbations_With_Shared_Adversarial_Training_ICCV_2019_paper.pdf) and [Deng & Karam](https://ieeexplore.ieee.org/document/9191288)) for generating **Universal Adversarial Perturbations (UAPs)**. These are a class of adversarial attacks on deep neural networks where a single UAP can fool a model on an entire set of affected inputs. SGD has been shown to create more effective UAPs than the originally proposed iterative-DeepFool by [Moosavi-Dezfooli et al.](https://openaccess.thecvf.com/content_cvpr_2017/papers/Moosavi-Dezfooli_Universal_Adversarial_Perturbations_CVPR_2017_paper.pdf)
 
-![slider](docs/uaps_all.png)
-
-This repository contains sample code and interactive Jupyter notebooks for the following work:
-
-* ["Universal Adversarial Perturbations to Understand Robustness of Texture vs. Shape-biased Training"](https://arxiv.org/abs/1911.10364)
-* ["Robustness and Transferability of Universal Attacks on Compressed Models"](https://openreview.net/forum?id=HJx08NSnnE) [(AAAI'21 Workshop)](http://federated-learning.org/rseml2021/)
-
-We encourage you to explore these Python notebooks to generate and evaluate your own UAPs. We suggest testing the notebooks for the CIFAR-10 UAPs first.
-
-### UAPs for Texture vs. Shape
-The notebook **texture-shape.ipynb** visualizes some results discussed in the [paper](https://arxiv.org/abs/1911.10364), exploring the UAPs for texture and shape-biased models. Credit to [Geirhos et al.](https://github.com/rgeirhos/texture-vs-shape) for making available their models trained on Stylized-ImageNet.
-
-### UAP Performance
-For undefended models trained on ImageNet, we can expect untargeted UAPs to achieve **above 90% evasion rate** on the ImageNet validation set for L-infinity perturbation values of 10/255. An example of a targeted UAP for a ResNet18 model on CIFAR-10 is shown below with its effect on the model's output distribution.
+For *undefended* models trained on ImageNet, we can expect untargeted UAPs to achieve **above 90% evasion rate** on the ImageNet validation set at an L-infinity perturbation constraint of 10/255.
 
 <p align=center width="100%">
 <img src="docs/uap_example.png" width="23%">
@@ -24,20 +11,34 @@ For undefended models trained on ImageNet, we can expect untargeted UAPs to achi
 <img src="docs/distribution_clean.png" width="31%">
 </p>
 
-Pre-computed targeted and untargeted UAPs are made available in this repository for the ResNet18 model on CIFAR-10 and the ResNet50 models on ImageNet.
+An example of a targeted UAP for a ResNet18 model on CIFAR-10 is shown above with its effect on the model's output distribution. The original model, which can be downloaded [here](https://drive.google.com/file/d/1lyFy1hXWC-kv8dM5qMS3_frQtyS-F7xv/view?usp=sharing), achieves 94.02% accuracy on the original test set.
+
+This repository contains sample code, interactive Jupyter notebooks, and pre-computed UAPs (see `uaps` folder) for the following work:
+
+* ["Robustness and Transferability of Universal Attacks on Compressed Models"](https://openreview.net/forum?id=HJx08NSnnE) [(AAAI'21 Workshop)](http://federated-learning.org/rseml2021/)
+* ["Universal Adversarial Perturbations to Understand Robustness of Texture vs. Shape-biased Training"](https://arxiv.org/abs/1911.10364)
+
+![slider](docs/uaps_all.png)
+
+We encourage you to explore these Python notebooks to generate and evaluate your own UAPs. If you are new to this topic, we suggest running the notebooks for the CIFAR-10 UAPs first.
+
+### UAPs for Texture vs. Shape
+`texture-shape.ipynb` visualizes some results discussed in the [paper](https://arxiv.org/abs/1911.10364), exploring the UAPs for texture and shape-biased models. We are thankful to [Geirhos et al.](https://github.com/rgeirhos/texture-vs-shape) for making available their models trained on Stylized-ImageNet.
+
 
 ## Preparation
 Refer to instructions [here](https://github.com/pytorch/examples/tree/master/imagenet) for downloading and preparing the ImageNet dataset. 
 
 A pre-trained ResNet18 for CIFAR-10 is available [here](https://drive.google.com/file/d/1lyFy1hXWC-kv8dM5qMS3_frQtyS-F7xv/view?usp=sharing) that achieves 94.02% accuracy on the test set. Pre-trained ImageNet models are available online via [torchvision](https://pytorch.org/docs/stable/torchvision/models.html).
 
+
 ## Supported Universal Attacks
 Universal attacks on **CIFAR-10** and **ImageNet** models are based on:
 
-* Stochastic gradient descent UAP as proposed by [Shahfahi et al.](https://ojs.aaai.org//index.php/AAAI/article/view/6017)
-* Layer maximization attack proposed by [Co et al.](https://arxiv.org/abs/1911.10364)
+* Stochastic Gradient Descent as proposed by [Shahfahi et al.](https://ojs.aaai.org//index.php/AAAI/article/view/6017)
+* Layer Maximization as proposed by [Co et al.](https://arxiv.org/abs/1911.10364)
 
-We plan to include future support for other UAPs like [procedural noise](https://dl.acm.org/doi/10.1145/3319535.3345660) and [adversarial patches](https://arxiv.org/abs/1712.09665).
+We plan to include future support for other universal attacks like [procedural noise](https://dl.acm.org/doi/10.1145/3319535.3345660) and [adversarial patches](https://arxiv.org/abs/1712.09665).
 
 
 ## Acknowledgments
