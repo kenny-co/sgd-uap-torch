@@ -12,7 +12,7 @@ Layer maximization attack from:
 Universal Adversarial Perturbations to Understand Robustness of Texture vs. Shape-biased Training
 - https://arxiv.org/abs/1911.10364
 '''
-def uap_sgd(model, loader, nb_epoch, eps, beta = 8, y_target = None, loss_fn = None, layer_name = None):
+def uap_sgd(model, loader, nb_epoch, eps, beta = 8, y_target = None, loss_fn = None, layer_name = None, uap_init = None):
     '''
     INPUT
     model       model
@@ -23,6 +23,7 @@ def uap_sgd(model, loader, nb_epoch, eps, beta = 8, y_target = None, loss_fn = N
     y_target    target class label for Targeted UAP variation
     loss_fn     custom loss function (default is CrossEntropyLoss)
     layer_name  target layer name for layer maximization attack
+    uap_init    custom perturbation to start from (default is random vector with pixel values {-eps, eps})
     
     OUTPUT
     delta.data  adversarial perturbation
@@ -30,8 +31,12 @@ def uap_sgd(model, loader, nb_epoch, eps, beta = 8, y_target = None, loss_fn = N
     '''
     _, (x_val, y_val) = next(enumerate(loader))
     batch_size = len(x_val)
-    batch_delta = torch.randn_like(x_val).sign() * eps / 2 # initialize as random vector with values {-eps, eps}
-    delta = batch_delta[0]
+    if uap_init is None:
+        batch_delta = torch.randn_like(x_val).sign() * eps / 2 # initialize as random vector with values {-eps, eps}
+        delta = batch_delta[0]
+    else:
+        batch_delta = uap_init.unsqueeze(0).repeat([batch_size, 1, 1, 1])
+        delta = uap_init
     losses = []
     
     # loss function
