@@ -166,6 +166,7 @@ def loader_cifar(dir_data, train = False, batch_size = 250):
 
 
 # Evaluate model on data with or without UAP
+# Assumes data range is bounded by [0, 1]
 def evaluate(model, loader, uap = None, n = 5):
     '''
     OUTPUT
