@@ -12,7 +12,7 @@ Layer maximization attack from:
 Universal Adversarial Perturbations to Understand Robustness of Texture vs. Shape-biased Training
 - https://arxiv.org/abs/1911.10364
 '''
-def uap_sgd(model, loader, nb_epoch, eps, beta = 8, y_target = None, loss_fn = None, layer_name = None, uap_init = None):
+def uap_sgd(model, loader, nb_epoch, eps, beta = 12, y_target = None, loss_fn = None, layer_name = None, uap_init = None):
     '''
     INPUT
     model       model
@@ -33,10 +33,9 @@ def uap_sgd(model, loader, nb_epoch, eps, beta = 8, y_target = None, loss_fn = N
     batch_size = len(x_val)
     if uap_init is None:
         batch_delta = torch.randn_like(x_val).sign() * eps / 2 # initialize as random vector with values {-eps, eps}
-        delta = batch_delta[0]
     else:
         batch_delta = uap_init.unsqueeze(0).repeat([batch_size, 1, 1, 1])
-        delta = uap_init
+    delta = batch_delta[0]
     losses = []
     
     # loss function
@@ -58,6 +57,7 @@ def uap_sgd(model, loader, nb_epoch, eps, beta = 8, y_target = None, loss_fn = N
                 
     batch_delta.requires_grad_()
     for epoch in range(nb_epoch):
+        print('epoch %i/%i' % (epoch + 1, nb_epoch))
         
         # perturbation step size
         eps_step = eps / 5

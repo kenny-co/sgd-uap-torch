@@ -134,7 +134,7 @@ def loader_imgnet(dir_data, nb_images = 50000, batch_size = 100, img_size = 224)
     
     val_dataset = ImageFolder(dir_data, val_transform)
     
-    # shuffle if not using the full 50,000 validation set
+    # Random subset if not using the full 50,000 validation set
     if nb_images < 50000:
         np.random.seed(0)
         sample_indices = np.random.permutation(range(50000))[:nb_images]
@@ -143,7 +143,7 @@ def loader_imgnet(dir_data, nb_images = 50000, batch_size = 100, img_size = 224)
     dataloader = torch.utils.data.DataLoader(
         val_dataset,
         batch_size = batch_size,                                             
-        shuffle = False, 
+        shuffle = True, 
         num_workers = max(1, multiprocessing.cpu_count() - 1)
     )
     
@@ -158,10 +158,10 @@ def loader_cifar(dir_data, train = False, batch_size = 250):
     ])
     if train:
         trainset = torchvision.datasets.CIFAR10(root = dir_data, train = True, download = True, transform = transform_test)
-        dataloader = torch.utils.data.DataLoader(trainset, batch_size = batch_size, shuffle = True, num_workers = 4)
+        dataloader = torch.utils.data.DataLoader(trainset, batch_size = batch_size, shuffle = True, num_workers = max(1, multiprocessing.cpu_count() - 1))
     else:
-        testset = torchvision.datasets.CIFAR10(root = dir_data, train=False, download=True, transform=transform_test)
-        dataloader = torch.utils.data.DataLoader(testset, batch_size = batch_size, shuffle = False, num_workers = 4)
+        testset = torchvision.datasets.CIFAR10(root = dir_data, train = False, download = True, transform = transform_test)
+        dataloader = torch.utils.data.DataLoader(testset, batch_size = batch_size, shuffle = True, num_workers = max(1, multiprocessing.cpu_count() - 1))
     return dataloader
 
 
