@@ -32,7 +32,7 @@ def uap_sgd(model, loader, nb_epoch, eps, beta = 12, y_target = None, loss_fn = 
     _, (x_val, y_val) = next(enumerate(loader))
     batch_size = len(x_val)
     if uap_init is None:
-        batch_delta = torch.randn_like(x_val).sign() * eps / 2 # initialize as random vector with values {-eps, eps}
+        batch_delta = torch.zeros_like(x_val) # initialize as zero vector
     else:
         batch_delta = uap_init.unsqueeze(0).repeat([batch_size, 1, 1, 1])
     delta = batch_delta[0]
@@ -59,8 +59,8 @@ def uap_sgd(model, loader, nb_epoch, eps, beta = 12, y_target = None, loss_fn = 
     for epoch in range(nb_epoch):
         print('epoch %i/%i' % (epoch + 1, nb_epoch))
         
-        # perturbation step size
-        eps_step = eps / 5
+        # perturbation step size with decay
+        eps_step = eps / 4 * ((nb_epoch - epoch) / nb_epoch)
         
         for i, (x_val, y_val) in enumerate(loader):
             # for targeted UAP, switch output labels to y_target

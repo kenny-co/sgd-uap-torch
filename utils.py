@@ -142,7 +142,7 @@ def loader_imgnet(dir_data, nb_images = 50000, batch_size = 100, img_size = 224)
     
     dataloader = torch.utils.data.DataLoader(
         val_dataset,
-        batch_size = batch_size,                                             
+        batch_size = batch_size,                              
         shuffle = True, 
         num_workers = max(1, multiprocessing.cpu_count() - 1)
     )
