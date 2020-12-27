@@ -12,7 +12,7 @@ Layer maximization attack from:
 Universal Adversarial Perturbations to Understand Robustness of Texture vs. Shape-biased Training
 - https://arxiv.org/abs/1911.10364
 '''
-def uap_sgd(model, loader, nb_epoch, eps, beta = 12, y_target = None, loss_fn = None, layer_name = None, uap_init = None):
+def uap_sgd(model, loader, nb_epoch, eps, beta = 12, step_decay = 0.8, y_target = None, loss_fn = None, layer_name = None, uap_init = None):
     '''
     INPUT
     model       model
@@ -60,7 +60,7 @@ def uap_sgd(model, loader, nb_epoch, eps, beta = 12, y_target = None, loss_fn = 
         print('epoch %i/%i' % (epoch + 1, nb_epoch))
         
         # perturbation step size with decay
-        eps_step = eps / 4 * ((nb_epoch - epoch) / nb_epoch)
+        eps_step = eps * step_decay
         
         for i, (x_val, y_val) in enumerate(loader):
             # for targeted UAP, switch output labels to y_target
