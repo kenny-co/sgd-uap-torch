@@ -1,4 +1,4 @@
-# Universal Adversarial Perturbations via SGD
+# Universal Adversarial Perturbations on PyTorch
 
 This repository implements the targeted and untargeted versions of the [Stochastic Gradient Descent (SGD)](https://ojs.aaai.org//index.php/AAAI/article/view/6017) algorithm (also known as Stochastic Projected Gradient Descent (sPGD) in  [Mummadi et al.](https://openaccess.thecvf.com/content_ICCV_2019/papers/Mummadi_Defending_Against_Universal_Perturbations_With_Shared_Adversarial_Training_ICCV_2019_paper.pdf) and [Deng & Karam](https://ieeexplore.ieee.org/document/9191288)) for generating **Universal Adversarial Perturbations (UAPs)**. These are a class of adversarial attacks on deep neural networks where a single UAP can fool a model on an entire set of affected inputs. SGD has been shown to create more effective UAPs than the originally proposed iterative-DeepFool by [Moosavi-Dezfooli et al.](https://openaccess.thecvf.com/content_cvpr_2017/papers/Moosavi-Dezfooli_Universal_Adversarial_Perturbations_CVPR_2017_paper.pdf)
 
