@@ -63,6 +63,9 @@ def uap_sgd(model, loader, nb_epoch, eps, beta = 12, step_decay = 0.8, y_target 
         eps_step = eps * step_decay
         
         for i, (x_val, y_val) in enumerate(loader):
+            batch_delta.grad.data.zero_()
+            batch_delta.data = delta.unsqueeze(0).repeat([x_val.shape[0], 1, 1, 1])
+
             # for targeted UAP, switch output labels to y_target
             if y_target is not None: y_val = torch.ones(size = y_val.shape, dtype = y_val.dtype) * y_target
             
@@ -74,14 +77,13 @@ def uap_sgd(model, loader, nb_epoch, eps, beta = 12, step_decay = 0.8, y_target 
             else: loss = main_value
             
             if y_target is not None: loss = -loss # minimize loss for targeted UAP
-            losses.append(torch.mean(loss))
+            losses.append(torch.mean(loss))s
             loss.backward()
             
             # batch update
             grad_sign = batch_delta.grad.data.mean(dim = 0).sign()
             delta = delta + grad_sign * eps_step
             delta = torch.clamp(delta, -eps, eps)
-            batch_delta.data = delta.unsqueeze(0).repeat([batch_size, 1, 1, 1])
             batch_delta.grad.data.zero_()
     
     if layer_name is not None: handle.remove() # release hook
