@@ -15,8 +15,8 @@ An example of a targeted UAP for a ResNet18 model on CIFAR-10 is shown above wit
 
 This repository contains sample code, interactive Jupyter `notebooks`, and pre-computed `uaps` for the following work:
 
+* ["Universal Adversarial Robustness of Texture and Shape-Biased Models"](https://ieeexplore.ieee.org/document/9506325/) [(ICIP'21)](https://www.2021.ieeeicip.org/)
 * ["Robustness and Transferability of Universal Attacks on Compressed Models"](https://arxiv.org/abs/2012.06024) [(AAAI'21 Workshop)](http://federated-learning.org/rseml2021/)
-* ["Universal Adversarial Robustness of Texture and Shape-Biased Models"](https://arxiv.org/abs/1911.10364)
 
 ![slider](docs/uaps_all.png)
 
@@ -46,14 +46,16 @@ We plan to include future support for other universal attacks like [procedural n
 
 Learn more about the [Resilient Information Systems Security (RISS)](http://rissgroup.org/) group at Imperial College London. Kenneth Co is partially supported by [DataSpartan](http://dataspartan.co.uk/).
 
-If you find this project useful in your research, please consider citing:
+If you find this project useful in your research, please cite:
 
 ```
-@article{co2019universal,
-  title={Universal Adversarial Robustness of Texture and Shape-Biased Models},
+@inproceedings{co2021universal,
+  title={Universal adversarial robustness of texture and shape-biased models},
   author={Co, Kenneth T and Mu{\~n}oz-Gonz{\'a}lez, Luis and Kanthan, Leslie and Glocker, Ben and Lupu, Emil C},
-  journal={arXiv preprint arXiv:1911.10364},
-  year={2019}
+  booktitle={2021 IEEE International Conference on Image Processing (ICIP)},
+  pages={799--803},
+  year={2021},
+  organization={IEEE}
 }
 
 @article{matachana2020robustness,
